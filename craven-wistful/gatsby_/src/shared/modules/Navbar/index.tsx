@@ -12,6 +12,7 @@ import {
   Menu
 } from '@material-ui/core';
 import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
+import { TemporaryDrawer } from './DropDown';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,10 +54,11 @@ export default function MenuAppBar() {
           label={auth ? 'Logout' : 'Login'}
         />
       </FormGroup>
+
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
+            <TemporaryDrawer />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Photos
