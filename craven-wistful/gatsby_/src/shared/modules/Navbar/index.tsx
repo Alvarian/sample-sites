@@ -5,22 +5,17 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Switch,
-  FormControlLabel,
-  FormGroup,
   MenuItem,
   Menu
 } from '@material-ui/core';
-import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
+import { AccountCircle } from '@material-ui/icons';
 import { TemporaryDrawer } from './DropDown';
+import { Auth } from './Auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
     },
     title: {
       flexGrow: 1,
@@ -30,13 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function MenuAppBar() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [auth, setAuth] = React.useState(true);
   const open = Boolean(anchorEl);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,21 +39,17 @@ export default function MenuAppBar() {
 
   return (
     <div className={classes.root}>
-      <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
+      <Auth setAuth={setAuth} auth={auth} />
 
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <TemporaryDrawer />
-          </IconButton>
+          <TemporaryDrawer />
+
           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
+
+          {/* If logged out, offer link to click-through to sign up */}
           {auth && (
             <div>
               <IconButton
