@@ -54,7 +54,7 @@ const rows = [
   }),
 ];
 
-const PlansTable = () => {
+export default function PlansTable() {
   const classes = useStyles();
 
   return (
@@ -103,5 +103,3 @@ const PlansTable = () => {
     </div>
   )
 }
-
-export default PlansTable
