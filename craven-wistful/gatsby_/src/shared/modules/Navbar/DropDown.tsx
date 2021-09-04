@@ -1,16 +1,16 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import {
+  Drawer,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core/';
 import { Menu as MenuIcon } from '@material-ui/icons';
+import { HomeIcon, ContactIcon } from './components/Icons';
+import { green, red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,23 +60,34 @@ export const TemporaryDrawer = () => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+      <ListItem button key='Get Started for Free!'>
+        <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
+        <ListItemText primary='Get Started for Free!' />
+      </ListItem>
+
+      <ListItem button key='About Us'>
+        <ListItemIcon><ContactIcon style={{ color: red[500] }} /></ListItemIcon>
+        <ListItemText primary='About Us' />
+      </ListItem>
+
+      {/* <List>
+        {['About Us', 'Get Started for Free!', 'Testimonials', 'Our Products', 'Contact Us'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
-      <Divider />
+      </List> */}
+
+      {/* <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {['Sign up', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   );
 
