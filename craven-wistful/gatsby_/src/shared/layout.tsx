@@ -8,8 +8,6 @@
 import React, { FunctionComponent } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
-import { Link } from "@material-ui/core"
 import Navbar from "./modules/Navbar"
 
 import "./layout.css"
