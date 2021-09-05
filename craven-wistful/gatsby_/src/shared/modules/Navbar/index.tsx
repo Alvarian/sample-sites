@@ -8,9 +8,10 @@ import {
   MenuItem,
   Menu
 } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
-import { TemporaryDrawer } from './DropDown';
+import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
 import { Auth } from './Auth';
+import { DrawerMenu } from './DrawerMenu';
+import { Anchor } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    }
   }),
 );
 
@@ -27,7 +31,27 @@ export default function MenuAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [auth, setAuth] = React.useState(true);
+  const [isDrawerOpen, setDrawer] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
   const open = Boolean(anchorEl);
+
+  const toggleDrawer = (anchor: Anchor, open: boolean) => (
+    event: React.KeyboardEvent | React.MouseEvent,
+  ) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+
+    setDrawer({ ...isDrawerOpen, [anchor]: open });
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,11 +63,13 @@ export default function MenuAppBar() {
 
   return (
     <div className={classes.root}>
-      <Auth setAuth={setAuth} auth={auth} />
+      {/* <Auth setAuth={setAuth} auth={auth} /> */}
 
       <AppBar position="static">
         <Toolbar>
-          <TemporaryDrawer />
+          <IconButton onClick={toggleDrawer('top', true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
 
           <Typography variant="h6" className={classes.title}>
             Photos
@@ -82,6 +108,8 @@ export default function MenuAppBar() {
             </div>
           )}
         </Toolbar>
+
+        <DrawerMenu isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       </AppBar>
     </div>
   );

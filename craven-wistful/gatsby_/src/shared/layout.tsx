@@ -27,9 +27,10 @@ const Layout: FunctionComponent = ({ children }) => {
 
   return (
     <>
-      <header>{data.site.siteMetadata.title}</header>
+      {/* <header>{data.site.siteMetadata.title}</header> */}
       <SEO title="Home" />
       <Navbar />
+
       <div
         style={{
           margin: `0 auto`,
@@ -37,10 +38,8 @@ const Layout: FunctionComponent = ({ children }) => {
           padding: `0px 1.0875rem 1.45rem`,
           paddingTop: 0,
         }}
-      >
-        <main>{children}</main>
+      >{children}</div>
 
-      </div>
       <Footer />
     </>
   )
