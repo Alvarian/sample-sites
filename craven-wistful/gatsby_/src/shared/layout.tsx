@@ -8,10 +8,11 @@
 import React, { FunctionComponent } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import Navbar from "./modules/Navbar"
 
 import "./layout.css"
 import SEO from "./seo"
+import Footer from "./modules/Footer"
+import Navbar from "./modules/Navbar"
 
 const Layout: FunctionComponent = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -38,12 +39,9 @@ const Layout: FunctionComponent = ({ children }) => {
         }}
       >
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
+
       </div>
+      <Footer />
     </>
   )
 }
