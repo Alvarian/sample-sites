@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Tabs,
@@ -20,13 +20,7 @@ import {
   BoltIcon
 } from '../../components/Icons';
 import { green, red, yellow, blue, orange } from '@material-ui/core/colors';
-import { directories } from '../../../shared/data/directories';
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
+import { TabPanelProps } from './types';
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -70,6 +64,23 @@ export const DrawerMenuList = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
+  const directories = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          directories {
+            name,
+            children {
+              name,
+              endpoint
+            }
+          }
+        }
+      }
+    }
+  `);
+  console.log(directories.site.siteMetadata.directories.children)
+
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
@@ -84,29 +95,29 @@ export const DrawerMenuList = () => {
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        {directories.map(directory => {
+        {directories.site.siteMetadata.directories.map((directory: any) => {
           return (
-            <Tab label={directory.name} {...a11yProps(0)} />
+            <Tab key={directory.name} label={directory.name} {...a11yProps(0)} />
           )
         })}
-
-        {/* 
-        <Tab label="Item One" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
-        <Tab label="Item Four" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
-        <List>
+        {/* {directories.site.siteMetadata.directories.children.map((child: any) => {
+          return (
+            <ListItem button key={child.name} component={Link} to={child.endpoint}>
+              <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
+              <ListItemText primary={child.name} />
+            </ListItem>
+          )
+        })} */}
+
+        {/* 
           <ListItem button key='About Us' component={Link} to="/about">
             <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
             <ListItemText primary='About Us' />
           </ListItem>
 
-          {/* <ListItem button key='Get Started for Free!' component={Link} to="/signup">
+          <ListItem button key='Get Started for Free!' component={Link} to="/signup">
             <ListItemIcon><BoltIcon style={{ color: red[500] }} /></ListItemIcon>
             <ListItemText primary='Get Started for Free!' />
           </ListItem>
@@ -125,7 +136,6 @@ export const DrawerMenuList = () => {
             <ListItemIcon><ContactIcon style={{ color: orange[500] }} /></ListItemIcon>
             <ListItemText primary='Contact Us' />
           </ListItem> */}
-        </List>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
