@@ -1,16 +1,13 @@
 import React from 'react';
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Tabs,
   Tab,
   Typography,
   Box,
-  List,
   ListItem,
   ListItemIcon,
-  ListItemText,
-
 } from '@material-ui/core';
 import {
   HomeIcon,
@@ -79,7 +76,6 @@ export const DrawerMenuList = () => {
       }
     }
   `);
-  console.log(directories.site.siteMetadata.directories.children)
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -96,65 +92,32 @@ export const DrawerMenuList = () => {
         className={classes.tabs}
       >
         {directories.site.siteMetadata.directories.map((directory: any) => {
+          console.log(directory)
           return (
             <Tab key={directory.name} label={directory.name} {...a11yProps(0)} />
+
+            // <ListItem>
+            //   <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
+
+            //   <Tab key={directory.name} label={directory.name} {...a11yProps(0)} />
+            // </ListItem>
           )
         })}
       </Tabs>
-      <TabPanel value={value} index={0}>
-        {/* {directories.site.siteMetadata.directories.children.map((child: any) => {
-          return (
-            <ListItem button key={child.name} component={Link} to={child.endpoint}>
-              <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
-              <ListItemText primary={child.name} />
-            </ListItem>
-          )
-        })} */}
 
-        {/* 
-          <ListItem button key='About Us' component={Link} to="/about">
-            <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
-            <ListItemText primary='About Us' />
-          </ListItem>
-
-          <ListItem button key='Get Started for Free!' component={Link} to="/signup">
-            <ListItemIcon><BoltIcon style={{ color: red[500] }} /></ListItemIcon>
-            <ListItemText primary='Get Started for Free!' />
-          </ListItem>
-
-          <ListItem button key='Testimonials' component={Link} to="/">
-            <ListItemIcon><ConfirmIcon style={{ color: yellow[500] }} /></ListItemIcon>
-            <ListItemText primary='Testimonials' />
-          </ListItem>
-
-          <ListItem button key='Our Products' component={Link} to="/">
-            <ListItemIcon><RobotIcon style={{ color: blue[500] }} /></ListItemIcon>
-            <ListItemText primary='Our Products' />
-          </ListItem>
-
-          <ListItem button key='Contact Us'>
-            <ListItemIcon><ContactIcon style={{ color: orange[500] }} /></ListItemIcon>
-            <ListItemText primary='Contact Us' />
-          </ListItem> */}
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
+      {directories.site.siteMetadata.directories.map((directory: any, index: number) => {
+        return (
+          <TabPanel key={directory.name} value={value} index={index}>
+            {directory.children.map((child: any) => {
+              return (
+                <Box key={child.name} component="span" m={1}>
+                  <a href={child.endpoint} color="inherit">{child.name}</a>
+                </Box>
+              )
+            })}
+          </TabPanel>
+        )
+      })}
     </div>
   );
 }
