@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const DrawerMenu: FC<Any> = (props) => {
   const classes = useStyles();
-
+  
   const list = (anchor: Anchor) => (
     <div
       className={clsx(classes.list, {
@@ -35,7 +35,7 @@ export const DrawerMenu: FC<Any> = (props) => {
       role="presentation"
       onKeyDown={props.toggleDrawer(anchor, false)}
     >
-      <DrawerMenuList />
+      <DrawerMenuList directories={props.directories} />
     </div>
   );
 

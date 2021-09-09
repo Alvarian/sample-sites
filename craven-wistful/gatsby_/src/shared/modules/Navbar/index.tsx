@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [auth, setAuth] = React.useState(true);
@@ -38,7 +38,7 @@ export default function MenuAppBar() {
     right: false,
   });
   const open = Boolean(anchorEl);
-
+  
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
   ) => {
@@ -109,7 +109,7 @@ export default function MenuAppBar() {
           )}
         </Toolbar>
 
-        <DrawerMenu isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+        <DrawerMenu directories={props.directories} isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       </AppBar>
     </div>
   );

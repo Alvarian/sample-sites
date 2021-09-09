@@ -76,7 +76,7 @@ function a11yProps(index: any) {
 export const DrawerMenuList: FC<Any> = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
@@ -88,10 +88,8 @@ export const DrawerMenuList: FC<Any> = (props) => {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        className={classes.tabs}
-        height="100%"
       >
-        {props.directories.site.siteMetadata.directories.map((directory: any, index: number) => {
+        {props.directories.map((directory: any, index: number) => {
           return (
             <Tab key={directory.name} label={directory.name} {...a11yProps(index)} className={classes.tab} />
 
@@ -104,7 +102,7 @@ export const DrawerMenuList: FC<Any> = (props) => {
         })}
       </Tabs>
 
-      {props.directories.site.siteMetadata.directories.map((directory: any, index: number) => {
+      {props.directories.map((directory: any, index: number) => {
         return (
           <TabPanel key={directory.name} value={value} index={index}>
             {directory.children.map((child: any) => {

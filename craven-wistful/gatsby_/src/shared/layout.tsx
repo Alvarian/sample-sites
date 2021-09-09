@@ -35,7 +35,7 @@ const Layout: FunctionComponent = ({ children }) => {
   return (
     <>
       <SEO title="Home" />
-      <Navbar directories={directories} />
+      <Navbar directories={directories.site.siteMetadata.directories} />
 
       <div
         style={{
@@ -46,7 +46,7 @@ const Layout: FunctionComponent = ({ children }) => {
         }}
       >{children}</div>
 
-      <Footer directories={directories} />
+      <Footer directories={directories.site.siteMetadata.directories} />
     </>
   )
 }
