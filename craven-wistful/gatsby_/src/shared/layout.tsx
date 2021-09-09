@@ -5,19 +5,37 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { FunctionComponent } from "react"
-import PropTypes from "prop-types"
+import React, { FunctionComponent } from "react";
+import { graphql, useStaticQuery } from 'gatsby';
 
-import "./layout.css"
-import SEO from "./seo"
-import Footer from "./modules/Footer"
-import Navbar from "./modules/Navbar"
+import PropTypes from "prop-types";
+
+import "./layout.css";
+import SEO from "./seo";
+import Footer from "./modules/Footer";
+import Navbar from "./modules/Navbar";
 
 const Layout: FunctionComponent = ({ children }) => {
+  const directories = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          directories {
+            name,
+            children {
+              name,
+              endpoint
+            }
+          }
+        }
+      }
+    }
+  `);
+
   return (
     <>
       <SEO title="Home" />
-      <Navbar />
+      <Navbar directories={directories} />
 
       <div
         style={{
@@ -28,7 +46,7 @@ const Layout: FunctionComponent = ({ children }) => {
         }}
       >{children}</div>
 
-      <Footer />
+      <Footer directories={directories} />
     </>
   )
 }

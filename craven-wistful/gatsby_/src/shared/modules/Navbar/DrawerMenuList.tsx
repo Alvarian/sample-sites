@@ -1,5 +1,4 @@
-import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import React, { FC } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Tabs,
@@ -17,7 +16,7 @@ import {
   BoltIcon
 } from '../../components/Icons';
 import { green, red, yellow, blue, orange } from '@material-ui/core/colors';
-import { TabPanelProps } from './types';
+import { TabPanelProps, Any } from './types';
 import { CloseSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -74,25 +73,9 @@ function a11yProps(index: any) {
   };
 }
 
-export const DrawerMenuList = () => {
+export const DrawerMenuList: FC<Any> = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
-  const directories = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          directories {
-            name,
-            children {
-              name,
-              endpoint
-            }
-          }
-        }
-      }
-    }
-  `);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -108,7 +91,7 @@ export const DrawerMenuList = () => {
         className={classes.tabs}
         height="100%"
       >
-        {directories.site.siteMetadata.directories.map((directory: any, index: number) => {
+        {props.directories.site.siteMetadata.directories.map((directory: any, index: number) => {
           return (
             <Tab key={directory.name} label={directory.name} {...a11yProps(index)} className={classes.tab} />
 
@@ -121,7 +104,7 @@ export const DrawerMenuList = () => {
         })}
       </Tabs>
 
-      {directories.site.siteMetadata.directories.map((directory: any, index: number) => {
+      {props.directories.site.siteMetadata.directories.map((directory: any, index: number) => {
         return (
           <TabPanel key={directory.name} value={value} index={index}>
             {directory.children.map((child: any) => {
