@@ -18,8 +18,35 @@ import {
 } from '../../components/Icons';
 import { green, red, yellow, blue, orange } from '@material-ui/core/colors';
 import { TabPanelProps } from './types';
+import { CloseSharp } from '@material-ui/icons';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    height: '40vh',
+    "& .MuiTabs-flexContainerVertical": {
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'space-around',
+      borderRight: `1px solid ${theme.palette.divider}`
+    }
+  },
+  tabpanelcontainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    height: '100%',
+    fontSize: '18pt'
+  },
+  tab: {
+    fontSize: '18pt'
+  }
+}));
 
 function TabPanel(props: TabPanelProps) {
+  const classes = useStyles();
   const { children, value, index, ...other } = props;
 
   return (
@@ -28,11 +55,12 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
+      style={{ height: '100%' }}
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
+        <Box className={classes.tabpanelcontainer} p={3}>
+          {children}
         </Box>
       )}
     </div>
@@ -45,17 +73,6 @@ function a11yProps(index: any) {
     'aria-controls': `vertical-tabpanel-${index}`,
   };
 }
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex'
-  },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
-  },
-}));
 
 export const DrawerMenuList = () => {
   const classes = useStyles();
@@ -85,16 +102,15 @@ export const DrawerMenuList = () => {
     <div className={classes.root}>
       <Tabs
         orientation="vertical"
-        variant="scrollable"
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
         className={classes.tabs}
+        height="100%"
       >
-        {directories.site.siteMetadata.directories.map((directory: any) => {
-          console.log(directory)
+        {directories.site.siteMetadata.directories.map((directory: any, index: number) => {
           return (
-            <Tab key={directory.name} label={directory.name} {...a11yProps(0)} />
+            <Tab key={directory.name} label={directory.name} {...a11yProps(index)} className={classes.tab} />
 
             // <ListItem>
             //   <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
@@ -110,7 +126,13 @@ export const DrawerMenuList = () => {
           <TabPanel key={directory.name} value={value} index={index}>
             {directory.children.map((child: any) => {
               return (
-                <Box key={child.name} component="span" m={1}>
+                <Box
+                  display='flex'
+                  flexDirection='row'
+                  key={child.name}
+                  component="span"
+                  m={1}
+                >
                   <a href={child.endpoint} color="inherit">{child.name}</a>
                 </Box>
               )
