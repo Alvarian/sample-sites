@@ -1,11 +1,9 @@
-import React, { FC } from "react"
-import { RouteComponentProps } from "@reach/router"
+import React from "react"
 
 import PlansTable from "../../shared/modules/PlansTable"
 
-type Props = RouteComponentProps<{ path: string; }>
 
-const Home: FC<Props> = () => {
+export default function Home() {
   return (
     <div>
       <h3>Home</h3>
@@ -14,5 +12,3 @@ const Home: FC<Props> = () => {
     </div>
   )
 }
-
-export default Home
