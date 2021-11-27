@@ -1,8 +1,7 @@
 import React from 'react'
 import { Grid, Container, Box, Link } from '@material-ui/core'
 
-export default function Footer(props) {
-  console.log('footer',props)
+export default function Footer({directories}) {
   return (
     <footer>
       <Box
@@ -13,9 +12,9 @@ export default function Footer(props) {
       >
         <Container maxWidth="lg">
           <Grid container spacing={5}>
-            {props.directories.map((directory: any, index: number) => {
+            {directories.map((directory: any, index: number) => {
               return (
-                <Grid key={directory.name} item xs={12} sm={4}>
+                <Grid key={directory.name} item xs={12} sm={12/directories.length}>
                   <Box borderBottom={1}>{directory.name}</Box>
 
                   {directory.children.map((child: any, index: number) => {

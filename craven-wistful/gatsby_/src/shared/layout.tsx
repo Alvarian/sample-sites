@@ -22,6 +22,7 @@ const Layout: FunctionComponent = ({ children }) => {
         siteMetadata {
           directories {
             name,
+            endpoint,
             children {
               name,
               endpoint

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link } from 'gatsby';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
   Tabs,
@@ -77,8 +78,9 @@ export const DrawerMenuList: FC<Any> = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const handleMenuOpen = (event: React.ChangeEvent<{}>, index: number) => {
+    console.log(event, index)
+    setValue(index);
   };
 
   return (
@@ -86,18 +88,11 @@ export const DrawerMenuList: FC<Any> = (props) => {
       <Tabs
         orientation="vertical"
         value={value}
-        onChange={handleChange}
         aria-label="Vertical tabs example"
       >
         {props.directories.map((directory: any, index: number) => {
           return (
-            <Tab key={directory.name} label={directory.name} {...a11yProps(index)} className={classes.tab} />
-
-            // <ListItem>
-            //   <ListItemIcon><HomeIcon style={{ color: green[500] }} /></ListItemIcon>
-
-            //   <Tab key={directory.name} label={directory.name} {...a11yProps(0)} />
-            // </ListItem>
+            <Tab onMouseEnter={setValue.bind(this, index)} component={Link} to={directory.endpoint} key={directory.name} label={directory.name} {...a11yProps(index)} className={classes.tab} />
           )
         })}
       </Tabs>

@@ -6,57 +6,74 @@ module.exports = {
     directories: [
       {
         name: "Company",
+        endpoint: "/company/",
         children: [
           {
             name: "About",
-            endpoint: "/about"
+            endpoint: "/company/about"
           },
           {
             name: "Testimonies",
-            endpoint: "/testimonies"
+            endpoint: "/company/testimonies"
           },
           {
             name: "Leadership",
-            endpoint: "/leadership"
-          },
-          {
-            name: "Contact Us",
-            endpoint: "/contact"
-          },
+            endpoint: "/company/leadership"
+          }
         ]
       },
       {
         name: "Services",
+        endpoint: "/services/",
         children: [
           {
             name: "Contractor1",
-            endpoint: "/contractor1"
+            endpoint: "/services/contractor1"
           },
           {
             name: "Contractor2",
-            endpoint: "/contractor2"
+            endpoint: "/services/contractor2"
           },
           {
             name: "API1",
-            endpoint: "/api1"
+            endpoint: "/services/api1"
           },
           {
             name: "API2",
-            endpoint: "/api2"
+            endpoint: "/services/api2"
           },
         ]
       },
       {
         name: "Account",
+        endpoint: "/account/",
         children: [
           {
             name: "Free Trial!",
-            endpoint: "/signup"
+            endpoint: "/account/signup"
           },
           {
             name: "Log in",
-            endpoint: "/login"
+            endpoint: "/account/login"
           },
+        ]
+      },
+      {
+        name: "Contact Us",
+        endpoint: "/contact",
+        children: [
+          {
+            name: "Careers",
+            endpoint: "/contact/careers"
+          },
+          {
+            name: "Location",
+            endpoint: "/contact/location"
+          },
+          {
+            name: "Customer Support",
+            endpoint: "/contact/support"
+          }
         ]
       }
     ],
